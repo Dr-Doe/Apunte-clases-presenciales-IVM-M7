@@ -1,5 +1,5 @@
 import React from 'react';
-import { SectionHeader, SubHeader, H3, DetailList, ExamTip } from './Shared';
+import { SectionHeader, SubHeader, H3, DetailList, ExamTip, Quiz } from './Shared';
 import { Activity } from 'lucide-react';
 
 export default function Class2() {
@@ -92,6 +92,43 @@ export default function Class2() {
       <ExamTip>
         <strong>¿Qué es Bumpless Transfer?</strong> Es la capacidad técnica (software/hardware) que permite pasar el controlador de modo MANUAL a AUTO (o viceversa) sin que la válvula dé un salto violento (golpe de ariete). 
       </ExamTip>
+
+      <Quiz 
+        questions={[
+          {
+            question: "En un control On-Off donde la Variable de Proceso (PV) comienza a oscilar frenéticamente sobre el SetPoint y rompe componentes mecánicos, ¿qué parámetro técnico debes ajustar?",
+            options: [
+              "La acción Derivativa",
+              "Aumentar el Tiempo Integral",
+              "La Brecha Diferencial (Gap/Zona muerta)",
+              "Pasar el lazo a Modo Cascada"
+            ],
+            correctIndex: 2,
+            explanation: "La solución clásica al fenómeno de ciclado rápido en controles Todo-Nada es aplicar una zona muerta separando el punto de encendido del de apagado."
+          },
+          {
+            question: "Si cambias a MODO MANUAL un controlador en SCADA, ¿qué sucede lógicamente?",
+            options: [
+              "El actuador pasa a ser controlado ciegamente por el esfuerzo (MV%) que ingresa el operador rompiendo el lazo automático.",
+              "El PID aumenta la Ganancia y cierra las válvulas.",
+              "El SetPoint se ignora pero la planta se mantiene en automático."
+            ],
+            correctIndex: 0,
+            explanation: "En MAN, el control PID automático se desactiva. El SetPoint y la lectura de Variable de Proceso dejan de interactuar automáticamente, obedeciendo ciegamente al % cargado por el humano."
+          },
+          {
+            question: "En un control PID, si observas que el proceso llegó a un estado estable, pero nunca alcanza el valor de SetPoint deseado (generando un error constante llamado Offset), ¿qué se requiere sintonizar?",
+            options: [
+              "La Acción Derivativa (D)",
+              "La Banda Proporcional (P) en exclusiva",
+              "La Acción Integral (I)",
+              "La válvula físicamente cambiando su resorte"
+            ],
+            correctIndex: 2,
+            explanation: "La principal y única función crítica de la Acción Integral (I) en un controlador es sumar el error anterior en el tiempo para eliminar matemática y físicamente el error estacionario (Offset)."
+          }
+        ]} 
+      />
     </div>
   );
 }

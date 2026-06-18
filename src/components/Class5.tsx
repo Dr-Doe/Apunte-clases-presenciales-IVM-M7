@@ -1,5 +1,5 @@
 import React from 'react';
-import { SectionHeader, SubHeader, H3, DetailList, ExamTip } from './Shared';
+import { SectionHeader, SubHeader, H3, DetailList, ExamTip, Quiz } from './Shared';
 import { MonitorPlay } from 'lucide-react';
 
 export default function Class5() {
@@ -83,6 +83,33 @@ export default function Class5() {
           <li><strong>Faceplate:</strong> Si quieres cambiar la planta de AUTO a MANUAL o modificar el SetPoint (SP), lo haces desde esta pequeña ventana (Faceplate) que emergió al hacer click en el equipo dentro del plano P&ID en SCADA.</li>
         </ul>
       </ExamTip>
+
+      <Quiz 
+        questions={[
+          {
+            question: "¿Cuál de estas aseveraciones marca correctamente la diferencia entre SCADA Central y un Panel HMI Táctil perimetral?",
+            options: [
+              "El SCADA siempre se conecta directo por cable serial a cada válvula, el HMI se conecta por satélite a la PC.",
+              "El HMI ofrece datos de diagnóstico puro de alta densidad para analistas. El SCADA es simple táctil para mantenimiento sin base de datos.",
+              "El HMI está enfocado operacionalmente en equipo local de control táctico expuesto, el SCADA permite el manejo integral macro-estratégico de millones de datos histórico en espacio ciego y seguro.",
+              "El HMI almacena los históricos (Historian) que el SCADA carece de capacidad técnica de almacenar."
+            ],
+            correctIndex: 2,
+            explanation: "El SCADA requiere servidores para Big Data histórica. El HMI está pegado a la bomba para control táctico sin servidor de base de datos pesada y no gestiona la planta global."
+          },
+          {
+            question: "En una sala de SCADA salta una alarma Roja, enciende la bocina alta y el icono parpadea intermitentemente sin cesar. Según el ciclo ISA, ¿qué acción es requerida para pasar la luz de intermitente a continua y quitar la alarma al software?",
+            options: [
+              "Shelving (Modo en el Estante).",
+              "Acknowledge o Reconocimiento (ACK) ejecutado de forma manual por el operador visual certificando 'lo vi'.",
+              "Cambiar de AUTO a MANUAL.",
+              "Modificar el PID desde el Faceplate y esperar que PV supere a Setpoint."
+            ],
+            correctIndex: 1,
+            explanation: "ISA 18.2 establece el botón de Acuse (Acknowledge) como el traspaso de una Alarma Activa No Atendida (parpadeante con audio) al estado Atendida. (El audio cesa pero la luz sigue mientras persista la desviación)."
+          }
+        ]} 
+      />
     </div>
   );
 }

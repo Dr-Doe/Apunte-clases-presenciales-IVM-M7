@@ -1,5 +1,5 @@
 import React from 'react';
-import { SectionHeader, SubHeader, H3, DetailList, ExamTip } from './Shared';
+import { SectionHeader, SubHeader, H3, DetailList, ExamTip, Quiz } from './Shared';
 import { Cpu } from 'lucide-react';
 
 export default function Class1() {
@@ -88,6 +88,44 @@ export default function Class1() {
           <li><strong>Memoria:</strong> El programa (la lógica) NO se borra si se corta la luz porque reside en la <strong>EEPROM</strong> (No volátil). Para datos volátiles rápidos, usa RAM.</li>
         </ul>
       </ExamTip>
+
+      <Quiz 
+        questions={[
+          {
+            question: "¿Qué componente del PLC almacena el programa lógico para que no se pierda al cortar la energía?",
+            options: [
+              "La memoria RAM",
+              "El módulo de E/S",
+              "La fuente de alimentación",
+              "La memoria EEPROM no volátil"
+            ],
+            correctIndex: 3,
+            explanation: "La EEPROM es una memoria no volátil donde reside la lógica dictada en lenguajes como Ladder. La RAM solo se usa para el manejo de los datos volátiles del escaneo."
+          },
+          {
+            question: "Al observar un módulo de salida de PLC, ves que el LED indicador está encendido pero la bomba (carga) está apagada. ¿Esto sugiere?",
+            options: [
+              "Falla de comunicación del HMI",
+              "Una falla interna del PLC (relé congelado)",
+              "Problema externo al PLC (cable cortado, carga dañada o fusible quemado)",
+              "Saturación integral de la CPU"
+            ],
+            correctIndex: 2,
+            explanation: "El LED indica que el PLC lógicamente SÍ mandó la orden de encender. Si físicamente la bomba no funciona, la falla está afuera (en el cableado, relé secundario o motor)."
+          },
+          {
+            question: "La principal diferencia funcional entre un sistema centralizado local y un DCS moderno es:",
+            options: [
+              "El DCS utiliza relés mecánicos",
+              "La inteligencia distribuida del DCS le otorga autonomía de lazo aunque pierda conexión de red",
+              "El DCS es más barato y de una sola placa",
+              "El DCS sólo puede controlar señales discretas"
+            ],
+            correctIndex: 1,
+            explanation: "Un DCS reparte la inteligencia en múltiples controladores. Si un nodo o la pantalla principal se caen, el controlador en campo sigue operando el lazo automáticamente."
+          }
+        ]} 
+      />
     </div>
   );
 }

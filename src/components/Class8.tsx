@@ -1,5 +1,5 @@
 import React from 'react';
-import { SectionHeader, SubHeader, H3, DetailList, ExamTip } from './Shared';
+import { SectionHeader, SubHeader, H3, DetailList, ExamTip, Quiz } from './Shared';
 import { Search } from 'lucide-react';
 
 export default function Class8() {
@@ -55,6 +55,41 @@ export default function Class8() {
           <li><strong>Primer paso ante duda en SCADA:</strong> Consultar Arquitectura de C&E (Matriz causa y efecto) y trazar correlaciones. Aislar vía Bypass el loop y pasarlo de Auto a Manual si se debe chequear y desarmar en campo, tras la autorización pertinente LOTO (Lock-out Tag-out).</li>
         </ul>
       </ExamTip>
+
+      <Quiz 
+        questions={[
+          {
+            question: "En su consola SCADA, de manera idéntica y en el mismo segundo, el Tanque 1 de Gas y sus 8 transmisores asociados (presiones, flujos y niveles) decayeron sus valores en Magenta marcando 'COMM_FAIL' a la vez. ¿A qué se atribute más estadísticamente el error inicial en Troubleshooting?",
+            options: [
+              "Ciclado mecánico de 8 válvulas reventadas juntas (falla real simultánea en todo el fierro).",
+              "Saturación o Falla grave de comunicación en un Nodal intermedio, como un switch industrial / Gateway o fibra óptica perimetral.",
+              "Error Humano. Un operador tocó un Faceplate de un PLC local en Manual y rompió en Bypass todos los equipos juntos por defecto."
+            ],
+            correctIndex: 1,
+            explanation: "Ocho instrumentos reales y pesados rara vez se rompen solos todos a la vez cayendo a 'COM FAIL'. Ese mensaje denota perdida nodal IP/Serial. Implica siempre verificar switches (Topolía Red) ante todo. No fue una explosión porque todo hubiera quedado en 0 normal (rojo), no 'magenta o bad signal status'."
+          },
+          {
+            question: "El operador observa que en el Lazo de Flujo, el Set Point dicta '45 m3' y el Controlador exige mediante la OP (Output al 100%) máxima capacidad apertura... PERO, el Caudal real (PV) medido se congela limitadamente en solo 30 m3 eternos (Y jamas oscila ni decae). ¿Esto refleja qué problema de Troubleshooting?",
+            options: [
+              "Fricción de empacaduras y trabe (Stiction).",
+              "Saturación Pura Física: El controlador hizo tope al 100%, pero el entorno físico industrial de limitación carece de la fuerza de bomba necesaria. (Limitación real y física, no problema electrónico u PID).",
+              "Interlock accionado silencioso, sin activar alarma alguna ni Matriz C&E."
+            ],
+            correctIndex: 1,
+            explanation: "El PID pide al 100%, la válvula está totalmente abierta al máximo, pero solo leemos una fraccion real limitada. Eso significa que 'hay que poner una bomba más grande' o cambiar la Ingeniería del caño. Es Pura Saturación Ciega al Entorno Físico."
+          },
+          {
+            question: "Si ves que la Presión (PV) salta instantáneamente, formando un ángulo recto perfecto de 90 grados a CERO en su tendencia (O de repente de cero a 'Freeze 100') ignorando toda inercia gravitacional.. Esto te indica típicamente:",
+            options: [
+              "El Operador activó un HMI Local para arrancar la planta.",
+              "Rotura inminente física de la línea y bomba reventada termodinámicamente.",
+              "Falla Electrónica del Transmisor / Lazo 4-20mA Desconectado súbitamente por falla en cableado y no una variación Termodinámica ni Fluidomecánica real."
+            ],
+            correctIndex: 2,
+            explanation: "Ninguna curva termodinámica (presión, agua o gas fluyendo) dibuja un 'CERO' milisegundo perfecto que grafique una rectitud muerta total de un salto. Este salto milimétrico 'cuadrado' de milisegundos a cero indica un latigazo electrónico de los 4 o los voltios al milisegundo cero, o sea, falla de cableado / instrumento roto electrónico. La física real toma curvas para morir."
+          }
+        ]} 
+      />
     </div>
   );
 }

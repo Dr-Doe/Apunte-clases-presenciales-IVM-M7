@@ -1,5 +1,5 @@
 import React from 'react';
-import { SectionHeader, SubHeader, H3, DetailList, ExamTip } from './Shared';
+import { SectionHeader, SubHeader, H3, DetailList, ExamTip, Quiz } from './Shared';
 import { ShieldAlert } from 'lucide-react';
 
 export default function Class3() {
@@ -74,6 +74,43 @@ export default function Class3() {
           </li>
         </ul>
       </ExamTip>
+
+      <Quiz 
+        questions={[
+          {
+            question: "¿Cuál es la principal diferencia funcional de filosofía entre un lazo de control BPCS (proceso normal) y el lazo del sistema de protección SIS?",
+            options: [
+              "El SIS es activo, moviendo actuadores del 0 al 100%, mientras el BPCS espera en pasivo que haya peligro.",
+              "El SIS se conecta directamente a internet para dar visibilidad HMI, y el BPCS a las válvulas finales.",
+              "El BPCS busca el máximo dinero produciendo de manera activa constante, mientras el SIS es pasivo en vigilia buscando llevar todo al Estado Seguro de energía CERO si se viola un límite."
+            ],
+            correctIndex: 2,
+            explanation: "El BPCS opera PID continuos. El SIS es dormido, ciego a la eficiencia del negocio, si detecta límite catastrófico corta energía para parar todo y salvar el área."
+          },
+          {
+            question: "Aplicando un esquema redundante 2oo3 (Dos de Tres), si un transmisor detecta Alta Presión, pero los otros dos registran valor normal de presión: ¿Qué hará la lógica del SIS?",
+            options: [
+              "Parar de inmediato la planta para evitar explosión.",
+              "La planta no detendrá su marcha y seguirá operativa ignorando el voto unitario erróneo por seguridad de negocio.",
+              "Desplegar modo Cascada Override forzando control sobre 1oo2.",
+              "Abrir válvulas en rango partido."
+            ],
+            correctIndex: 1,
+            explanation: "Esa es la ventaja del 2oo3. Se requieren MÍNIMO 2 equipos dando peligro. Si de 3 equipos solo 1 grita peligo, deduce que es un sensor dañado evitando un falso paro general que costaría millones."
+          },
+          {
+            question: "¿Qué nos muestra una interrelación de X en el documento de seguridad 'Matriz Causa y Efecto'?",
+            options: [
+              "Si el Output (Causa de Fila) excede el código de seguridad generará que el SetPoint varíe en el PID.",
+              "Define netamente la acción de Bloqueo / Output de Columna que el Input/Causa de la Fila ordenará ejecutar al PLC de seguridad SIS.",
+              "Muestra las alarmas activas en un panel HMI al operador.",
+              "Determina si el Fire & Gas está calibrado."
+            ],
+            correctIndex: 1,
+            explanation: "Las Causas (Filas ej Nivel Muy alto del tanque) con cruce de matriz con Efecto (Columna: Detener bomba A) dicta al instrumento la maniobra del Sistema ESD / SIS."
+          }
+        ]} 
+      />
     </div>
   );
 }

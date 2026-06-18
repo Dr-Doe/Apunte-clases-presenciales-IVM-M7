@@ -1,5 +1,5 @@
 import React from 'react';
-import { SectionHeader, SubHeader, H3, DetailList, ExamTip } from './Shared';
+import { SectionHeader, SubHeader, H3, DetailList, ExamTip, Quiz } from './Shared';
 import { Network } from 'lucide-react';
 
 export default function Class7() {
@@ -63,6 +63,31 @@ export default function Class7() {
           <li>En Override es OBLIGATORIO evitar la saturación integral. Sin "windup protection", el sistema es un peligro técnico inerte al tratar de arrebatar la señal.</li>
         </ul>
       </ExamTip>
+
+      <Quiz 
+        questions={[
+          {
+            question: "¿Qué es y cómo funciona el Control de Rango Partido (Split-Range)?",
+            options: [
+              "Un sistema donde 1 controlador enruta su esfuerzo (OP de 0-100) para repartir órdenes distintas (ej. Mitad Calienta, Mitad Enfría) usando 2 o más válvulas simultáneas o transicionales.",
+              "Sistema de múltiples medidores de redundancia donde si se rompe uno, asume el 2do.",
+              "Válvula de triple orificio accionada manualmente por SCADA."
+            ],
+            correctIndex: 0,
+            explanation: "En Split-Range, el esfuerzo 100% de la salida del PID (OP) se divide en subrangos. P.ej dictando 0-50% a la válvula de agua, y 50-100% al vapor. 1 cerebro maneja 2 músculos o más."
+          },
+          {
+            question: "En un control con selector o Override, ¿cuál es su fin primordial y cuál es el mayor peligro en su implementación de software si no se configura bien el PID esclavo 'en guardia'?",
+            options: [
+              "Hacer Rango-partido. Peligro: Fallo en internet.",
+              "Otorgarle a la Seguridad Prioridad limitando parámetros del activo (pisando a producción). Mayor Peligro: Integral Windup (saturación en modo espera que retrasa o anula el traspaso de poder al chocar).",
+              "Bajar Causa Efectos mediante PLC a manual. Peligro: Bumpless transition no efectiva saltando variables de 0% a 50%."
+            ],
+            correctIndex: 1,
+            explanation: "El Override superpone la Seguridad Limitante. Si el Integrador (I) del lazo bloqueado en standby se satura porque sufre offset inalcanzable, jamás despertará a tiempo para la restricción (Satura a Windup por carecer de External Feedback de la posición real de la válvula)."
+          }
+        ]} 
+      />
     </div>
   );
 }
